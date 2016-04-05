@@ -1,9 +1,9 @@
 Pod::Spec.new do |s|
 s.name             = "DroiPushSDK"
 s.version          = "0.0.1"
-s.summary          = "DroiPushSDK iOS 卓易推送，使得开发者可以即时地向其应用程序的用户推送通知或者消息，与用户
+s.summary          = "DroiPushSDK iOS 卓易推送"
+s.description      = "DroiPushSDK iOS 卓易推送，使得开发者可以即时地向其应用程序的用户推送通知或者消息，与用户
 保持互动，从而有效地提高留存率，提升用户体验"
-s.description      = <<-DESC
 It is a marquee view used on iOS, which implement by Objective-C.
 DESC
 s.homepage         = "https://github.com/DroiBaaS"
