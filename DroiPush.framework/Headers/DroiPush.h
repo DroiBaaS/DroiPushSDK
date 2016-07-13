@@ -15,15 +15,6 @@ extern NSString *const kDroiPushReceiveFileNotification;        //收到文件�
 @interface DroiPush : NSObject
 
 
-/**开启DroiPush推送服务,必须调用,否则不能使用DroiPush SDK 相关功能
- @param appKey    注册app时生成的AppKey,请参考 DroiPush 相关说明文档来获取这个标识.
- @param appSecret 注册app是生成的AppSecret,请参考 DroiPush 相关说明文档来获取这个密钥.
- @param channelId channelId为nil时,默认为Appstore
- */
-+ (void)startWithAppKey:(NSString *)appKey
-              appSecret:(NSString *)appSecret
-              channelId:(NSString *)channelId;
-
 
 /**注册要处理的远程通知类型
  @param types 通知类型
@@ -33,7 +24,7 @@ extern NSString *const kDroiPushReceiveFileNotification;        //收到文件�
                                 categories:(NSSet *)categories;
 
 /**注册远程通知,类型为默认类型,也可以使用系统提供的方法自定义注册,默认类型为
- (Badge | Sound |Alert)
+ (Badge | Sound | Alert)
  */
 + (void)registerForRemoteNotifications;
 
@@ -76,6 +67,21 @@ extern NSString *const kDroiPushReceiveFileNotification;        //收到文件�
  */
 + (void)setLogOFF:(BOOL)isLogOFF;
 
+/**获取appId
+ */
++ (NSString *)getAppId;
+
+/**获取appSecret
+ */
++ (NSString *)getAppSecret;
+
+/**获取appAppChannel
+ */
++ (NSString *)getAppChannel;
+
+/**获取ClientId
+ */
++ (NSString *)getClientId;
 
 
 @end
