@@ -2,19 +2,21 @@
 //  DroiPush.h
 //  DroiPush
 //
-//  Created by Jon on 16/2/25.
-//  Copyright © 2016年 icewind. All rights reserved.
+//  Created by Droi on 16/2/25.
+//  Copyright © 2016年 Droi. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-
 
 extern NSString *const kDroiPushReceiveLongMessageNotification; //收到长消息通知
 extern NSString *const kDroiPushReceiveFileNotification;        //收到文件通知
 
 @interface DroiPush : NSObject
 
-
+/**注册远程通知,类型为默认类型,也可以使用系统提供的方法自定义注册,默认类型为
+ (Badge | Sound | Alert)
+ */
++ (void)registerForRemoteNotifications;
 
 /**注册要处理的远程通知类型
  @param types 通知类型
@@ -22,11 +24,6 @@ extern NSString *const kDroiPushReceiveFileNotification;        //收到文件�
  */
 + (void)registerForRemoteNotificationTypes:(NSUInteger)types
                                 categories:(NSSet *)categories;
-
-/**注册远程通知,类型为默认类型,也可以使用系统提供的方法自定义注册,默认类型为
- (Badge | Sound | Alert)
- */
-+ (void)registerForRemoteNotifications;
 
 /**返回字符串类型的deviceToken数据
  */
