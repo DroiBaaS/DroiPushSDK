@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString *const kDroiPushGetClientIdSuccessNotification;  //成功获取ClientId通知
+
 extern NSString *const kDroiPushReceiveLongMessageNotification; //收到长消息通知
 extern NSString *const kDroiPushReceiveFileNotification;        //收到文件通知
 
@@ -79,6 +81,5 @@ extern NSString *const kDroiPushReceiveFileNotification;        //收到文件�
 /**获取ClientId
  */
 + (NSString *)getClientId;
-
 
 @end
