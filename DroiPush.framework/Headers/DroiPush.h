@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString *const kDroiPushGetClientIdSuccessNotification;  //成功获取ClientId通知
+extern NSString *const kDroiPushGetDeviceIdSuccessNotification;  //成功获取DeviceId通知
 extern NSString *const kDroiPushReceiveLongMessageNotification; //收到长消息通知
 extern NSString *const kDroiPushReceiveFileNotification;        //收到文件通知
+extern NSString *const kDroiPushReceiveSilentNotification;      //收到透传消息通知
+
 
 @interface DroiPush : NSObject
 
@@ -21,7 +23,6 @@ extern NSString *const kDroiPushReceiveFileNotification;        //收到文件�
 
 /**注册要处理的远程通知类型
  @param types 通知类型
- @param categories
  */
 + (void)registerForRemoteNotificationTypes:(NSUInteger)types
                                 categories:(NSSet *)categories;
@@ -60,7 +61,6 @@ extern NSString *const kDroiPushReceiveFileNotification;        //收到文件�
  */
 + (NSSet *)filterValidTags:(NSSet *)tags;
 
-
 /** 是否关闭Log
  */
 + (void)setLogOFF:(BOOL)isLogOFF;
@@ -77,8 +77,14 @@ extern NSString *const kDroiPushReceiveFileNotification;        //收到文件�
  */
 + (NSString *)getAppChannel;
 
-/**获取ClientId
+/**获取DeviceId
  */
-+ (NSString *)getClientId;
++ (NSString *)getDeviceId;
+
+/**
+ 获取 SDK 版本号
+ */
++ (NSString *)getVersion;
+
 
 @end
