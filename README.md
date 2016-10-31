@@ -1,4 +1,5 @@
-﻿# 消息推送
+﻿
+# 消息推送
 ## 简介
 
 卓易推送（DroiPush）SDK是面向iOS开发者提供的一种消息推送服务模块，应用开发者可以通过第三方服务器或者卓易推送管理后台向集成SDK的应用推送消息，减少开发者集成APNs需要的工作量，并降低开发复杂度，同时还能统计推送的各项数据。
@@ -7,13 +8,15 @@
 
 ## 安装
 ### 快速入门
-由于DroiPush SDK依赖于DroiCore SDK，所以请在安装DroiPush SDK之前仔细阅读[快速入门](http://baastest.droi.cn/Index/docStart.html) ，完成DroiCore SDK的安装。
+由于DroiPush SDK依赖于DroiCore SDK，所以请在安装DroiPush SDK之前仔细阅读[快速入门](http://www.droibaas.com/Index/docFile/mark_id/24137.html) ，完成DroiCore SDK的安装。
 
 ### 项目配置
 为了更好的支持SDK推送，需要配置后台运行权限：推送唤醒（静默推送，Silent Remote Notifications）如下图：
 
 ![项目配置图][2]
  
+ 在Xcode 8中还需要开启 `Push Notifications` ，如下图：
+ ![项目配置图2][3]
 
 ### 使用CocoaPods方式安装（推荐）
 
@@ -255,5 +258,6 @@ SDK提供接口给应用打标签，推送时开发者选定推送目标为对�
 * 连接稳定性：连接成功率超过99%（排除网络原因）。
 
 
-[1]: http://baastest.droi.cn/Uploads/DocFile/5767a6d983ce9.jpeg
-[2]: http://baastest.droi.cn/Uploads/DocFile/5767a6d394a2a.jpeg
+  [1]: http://www.droibaas.com/Uploads/DocFile/5767a6d983ce9.jpeg
+  [2]: http://www.droibaas.com/Uploads/DocFile/5767a6d394a2a.jpeg
+  [3]: http://www.droibaas.com/Uploads/DocFile/5807154305bc3.png
