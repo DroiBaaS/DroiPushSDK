@@ -1,4 +1,4 @@
-﻿
+
 # 消息推送
 ## 简介
 
@@ -23,12 +23,15 @@
 DroiPush SDK使用CocoaPods作为函数库的管理工具。我们推荐您使用CocoaPods这种方式来安装SDK，这样可以大大简化安装DroiPush SDK的流程。如果您未安装CocoaPods，请参考[《CocoaPods安装和使用教程》](http://www.jianshu.com/p/b7bbf7f6af54)完成安装。CocoaPods安装完成后，请在项目根目录下创建一个Podfile文件，并添加如下内容（如果已有直接添加即可）：
 
 ```
+# 填入项目的 target
+target 'yourTarget' do 
 pod 'DroiCoreSDK'
-post_install do |installer|
-    require './Pods/DroiCoreSDK/scripts/postInstall.rb'
-    DroiCoreParser.installParser()
-end
+	post_install do |installer|
+    	require './Pods/DroiCoreSDK/scripts/postInstall.rb'
+    	DroiCoreParser.installParser()
+	end
 pod  'DroiPushSDK'
+end
 ```
 由于DroiPush SDK需依赖于DroiCore SDK，以上命令会安装DroiCore SDK并安装DroiPush SDK。如果之前已经安装过DroiCore SDK只需要添加
 
@@ -48,18 +51,24 @@ pod  install
 ## 使用
 ### 代码中集成 DroiPush SDK
  在使用DroiPush SDK之前需要先初始化DroiPush SDK 请在Applegate.m中添加如下代码，完成初始化。
+ 
 ```
 #import <DroiPush.h>    //导入DroiPush.h
-
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
 #import <UserNotifications/UserNotifications.h>     //iOS 10支持
 #endif
 #define IOS_VERSION [[[UIDevice currentDevice] systemVersion] floatValue]
 
+//从 DroiBaaS 官网上面申请 的 DroiPushSDK 的 APIKey 注意去区分沙箱和生产环境
+#if DEBUG
+#define DROI_PUSH_API_KEY  @"2d84rmSTy-d35ozZv7idiaxxAnJvK5xxHvDlPO24041xkwzAl4WVDmWh3gQFwjn8";
+#else
+#define DROI_PUSH_API_KEY  @"znbZopO0anapI65hOSnIgQu--9hNCt23IxGHj_BrU5v6TdJDKVPhKDTPcZmL90_n"";
+#endif
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 	//初始化DroiPush SDK并注册远程推送服务
-	[DroiPush registerForRemoteNotifications];
+    [DroiPush registerForRemoteNotificationWithAPIKey:DROI_PUSH_API_KEY];
 	
 	//iOS10 支持必须加下面这段代码。
     if (IOS_VERSION >= 10.0) {
@@ -137,12 +146,23 @@ NSSet *validTags = [DroiPush filterValidTags:tags];
 
 ```
 NSSet *tags = [[NSSet alloc] initWithObjects:@"DroiPush",@"iOS",nil];
-[DroiPush setTags:tags];
+[DroiPush setTags:set completionHandler:^(BOOL result) {
+		//result 为返回结果
+ }];
+```
+* 获取标签
+
+```
+[DroiPush getTag:^(BOOL result, NSString *tag) {
+    // result 为返回结果 tag 为所有标签拼接成的字符串   
+}];
 ```
 * 清空标签
 
 ```
-[DroiPush resetTags];
+[DroiPush resetTags:^(BOOL result) {
+		//result 为返回结果
+ }];
 ```
 **注意：设置标签为[NSSet set]空集合，表示为清空当前设置，也可以调用resetTags接口清空标签。应用tag数量最多限制为1024个，每个长度最多为256字符。** 
 
@@ -150,7 +170,9 @@ NSSet *tags = [[NSSet alloc] initWithObjects:@"DroiPush",@"iOS",nil];
 badge（角标）是iOS用来标记应用程序状态的一个数字，出现在程序图标右上角。DroiPush SDK封装了badge的管理功能，允许应用上传badge值至DroiPush服务器，由DroiPush后台帮助开发者管理每个用户所对应的推送badge值，简化了设置推送badge的操作。实际应用中，开发者只需将变化后的badge值通过setBadge接口同步DroiPush服务器，无需自己维护用户与badge值之间的对应关系，方便运营维护。
 
 ```
-[DroiPush setBadge:0];
+[DroiPush setBadge:badge completionHandler:^(BOOL result) {
+		//result 为返回结果
+}];
 ```
 ###  接收长消息与文件
 DroiPush SDK 提供了接收长消息和文件通知的功能。
@@ -230,7 +252,7 @@ DroiPush支持开发者上传自定义文件，或者使用外部文件(文件ur
 * 通知点击数：用户通过通知栏中通知点击打开应用的次数；
 
 ### DroiPush 支持哪些推送方式？
-DroiPush支持单播、列播、组播、群播的方法选择推送目标。
+DroiPush支持单播、列播、组播、广播的方法选择推送目标。
 
 * 单播
 
@@ -245,7 +267,7 @@ DroiPush支持单播、列播、组播、群播的方法选择推送目标。
 
 SDK提供接口给应用打标签，推送时开发者选定推送目标为对应标签，推送服务器则向该标签的分组用户推送消息；
 
-* 群播
+* 广播
 
 推送服务器向该应用的所有用户推送消息。
 
